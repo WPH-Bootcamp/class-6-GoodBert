@@ -2,19 +2,17 @@
 @use 'sass:map';
 
 @function get-color($type, $level) {
-  @if $type == null or $level == null {
-    @return 'Error: Type or Level is missing';
-  }
-
   @if map.has-key($colors, $type) {
     $type-map: map.get($colors, $type);
     @if map.has-key($type-map, $level) {
       @return map.get($type-map, $level);
     } @else {
-      @return 'Level is not in the list';
+      @warn 'Level is missing';
+      @return null;
     }
   } @else {
-    @return 'Type is not in the list';
+    @warn 'Type is not in the list';
+    @return null;
   }
 }
 // add the logic here
